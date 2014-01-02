@@ -5,8 +5,8 @@
   "keywords": [
     "yeoman-generator"
   ],
-  "homepage": "https://github.com/doowb/generator-helper",
-  "bugs": "https://github.com/doowb/generator-helper/issues",
+  "homepage": "https://github.com/assemble/generator-helper",
+  "bugs": "https://github.com/assemble/generator-helper/issues",
   "author": {
     "name": "Brian Woodward",
     "email": "brian.woodward@gmail.com",
@@ -15,7 +15,7 @@
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/doowb/generator-helper.git"
+    "url": "git://github.com/assemble/generator-helper.git"
   },
   "scripts": {
     "test": "mocha"

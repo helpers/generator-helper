@@ -1,0 +1,7 @@
+{
+  "name": "<%= _.slugify(helperName) %>",
+  "version": "0.0.0",
+  "dependencies": {
+  }
+}
+

@@ -1,0 +1,43 @@
+{
+  "name": "generator-helper",
+  "version": "0.0.0",
+  "description": "A generator for Yeoman",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "homepage": "https://github.com/doowb/generator-helper",
+  "bugs": "https://github.com/doowb/generator-helper/issues",
+  "author": {
+    "name": "Brian Woodward",
+    "email": "brian.woodward@gmail.com",
+    "url": "https://github.com/doowb"
+  },
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/doowb/generator-helper.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "yeoman-generator": "~0.14.0",
+    "lodash": "~2.4.1",
+    "async": "~0.2.9"
+  },
+  "devDependencies": {
+    "mocha": "~1.14.0"
+  },
+  "peerDependencies": {
+    "yo": ">=1.0.0"
+  },
+  "engines": {
+    "node": ">=0.8.0",
+    "npm": ">=1.2.10"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}

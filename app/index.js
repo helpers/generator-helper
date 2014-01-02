@@ -46,7 +46,8 @@ HelperGenerator.prototype.askFor = function askFor() {
       message: 'What type of helper are you creating?',
       'default': 'Handlebars',
       choices: [
-        'Handlebars'
+        'Handlebars',
+        'lodash'
       ]
     },
     {
@@ -57,7 +58,7 @@ HelperGenerator.prototype.askFor = function askFor() {
     {
       name: 'fullName',
       message: 'What will the full name be?',
-      'default': processTemplate('<%= _.slugify(helperType) %>-helper-<%= _.slugify(helperName) %>').bind(self)
+      'default': processTemplate('<%= _.slugify(helperType) %>-<%= (helperType === "lodash" ? "mixin" : "helper") %>-<%= _.slugify(helperName) %>').bind(self)
     },
     {
       name: 'description',
@@ -140,8 +141,9 @@ HelperGenerator.prototype.projectConfigs = function projectConfigs() {
 };
 
 HelperGenerator.prototype.testSetup = function testSetup() {
-    this.mkdir('test');
-    this.template('test/_main.js', 'test/main.js');
+  var mainName = 'test/_' + this.helperType + '.js';
+  this.mkdir('test');
+  this.template(mainName, 'test/main.js');
 };
 
 HelperGenerator.prototype.docsSetup = function docsSetup() {
@@ -149,5 +151,6 @@ HelperGenerator.prototype.docsSetup = function docsSetup() {
 };
 
 HelperGenerator.prototype.helperFiles = function helperFiles() {
-  this.template('_index.js', 'index.js');
+  var indexName = '_' + this.helperType + '.js';
+  this.template(indexName, 'index.js');
 };

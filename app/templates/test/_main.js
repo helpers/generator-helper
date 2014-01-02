@@ -2,17 +2,17 @@
 
 var expect = require('chai').expect;
 
-var <%= _.safename(helperName) %> = require('../');
+var <%= _.safename(fullName) %> = require('../');
 
-describe('<%= _.slugify(helperName) %>', function() {
+describe('<%= _.slugify(fullName) %>', function() {
 
 	before(function(){
 		// run any code before tests here
 	});
 
   it('should do something awesome', function() {
-    var expected = '<%= _.slugify(helperName) %>';
-    var actual = '<%= _.slugify(helperName) %>';
+    var expected = '<%= _.slugify(fullName) %>';
+    var actual = '<%= _.slugify(fullName) %>';
     expect(actual).to.eql(expected);
   });
 

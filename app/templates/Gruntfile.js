@@ -1,5 +1,5 @@
 /*
- * <%= _.slugify(helperName) %>
+ * <%= _.slugify(fullName) %>
  * <%= repositoryUrl %>
  *
  * Copyright (c) <%= (new Date).getYear() %> <%= contributors %>

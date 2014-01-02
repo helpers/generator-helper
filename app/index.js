@@ -1,6 +1,5 @@
 'use strict';
 var yeoman = require('yeoman-generator');
-var async = require('async');
 var util = require('util');
 var path = require('path');
 var _ = require('lodash');
@@ -11,6 +10,12 @@ var safename = function (name, patterns) {
   var re = new RegExp('^(?:' + remove.join('|') + ')[-_]?');
   return name.replace(re, '').replace(/[\W_]+/g, '_').replace(/^(\d)/, '_$1');
 }
+
+var processTemplate = function(tmpl) {
+  return function(answers) {
+    return this._.template(tmpl, answers);
+  };
+};
 
 
 var HelperGenerator = module.exports = function HelperGenerator(args, options, config) {
@@ -35,85 +40,78 @@ HelperGenerator.prototype.askFor = function askFor() {
   console.log(this.yeoman);
 
   var promptsList = [
-    [
-      {
-        name: 'helperName',
-        message: 'What do you want to call your helper?'
-      },
-      {
-        name: 'description',
-        message: 'How would you describe this helper?'
-      },
-      {
-        name: 'user',
-        message: 'What user/org will this helper live under?'
-      }
-    ], [
-      {
-        name: 'homepage',
-        message: 'What is the homepage for this helper?',
-        'default': 'https://github.com/<%= user %>/<%= _.slugify(helperName) %>'
-      },
-      {
-        name: 'repositoryUrl',
-        message: 'Where will this helper be stored?',
-        'default': 'https://github.com/<%= user %>/<%= _.slugify(helperName) %>.git'
-      },
-      {
-        name: 'bugUrl',
-        message: 'Where can people submit bugs for this helper?',
-        'default': 'https://github.com/<%= user %>/<%= _.slugify(helperName) %>/issues'
-      }
-    ], [
-      {
-        name: 'licenseType',
-        message: 'What type of license does this helper have?',
-        'default': 'MIT'
-      }
-    ], [
-      {
-        name: 'licenseUrl',
-        message: 'Where can the license be found?',
-        'default': 'https://github.com/<%= user %>/<%= _.slugify(helperName) %>/blob/master/LICENSE-<%= licenseType %>'
-      },
-      {
-        name: 'contributors',
-        message: 'Who are the contributors on this helper?',
-        'default': '<%= user %>'
-      }
-    ]
+    {
+      type: 'list',
+      name: 'helperType',
+      message: 'What type of helper are you creating?',
+      'default': 'Handlebars',
+      choices: [
+        'Handlebars'
+      ]
+    },
+    {
+      name: 'helperName',
+      message: 'What do you want to call your helper?',
+      'default': 'myHelper'
+    },
+    {
+      name: 'fullName',
+      message: 'What will the full name be?',
+      'default': processTemplate('<%= _.slugify(helperType) %>-helper-<%= _.slugify(helperName) %>').bind(self)
+    },
+    {
+      name: 'description',
+      message: 'How would you describe this helper?'
+    },
+    {
+      name: 'user',
+      message: 'What user/org will this helper live under?'
+    },
+    {
+      name: 'homepage',
+      message: 'What is the homepage for this helper?',
+      'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>').bind(self)
+    },
+    {
+      name: 'repositoryUrl',
+      message: 'Where will this helper be stored?',
+      'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>.git').bind(self)
+    },
+    {
+      name: 'bugUrl',
+      message: 'Where can people submit bugs for this helper?',
+      'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>/issues').bind(self)
+    },
+    {
+      name: 'licenseType',
+      message: 'What type of license does this helper have?',
+      'default': 'MIT'
+    },
+    {
+      name: 'licenseUrl',
+      message: 'Where can the license be found?',
+      'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>/blob/master/LICENSE-<%= licenseType %>').bind(self)
+    },
+    {
+      name: 'contributors',
+      message: 'Who are the contributors on this helper?',
+      'default': processTemplate('<%= user %>').bind(self)
+    }
   ];
 
-  async.eachSeries(promptsList, function(prompts, next) {
+  this.prompt(promptsList, function(answers) {
 
-    // process any templates
-    prompts.forEach(function(prompt) {
-      prompt.message = self._.template(prompt.message, self);
-      prompt['default'] = self._.template(prompt['default'], self);
-    });
-
-    // prompt for answers
-    self.prompt(prompts, function(answers) {
-      for (var key in answers) {
-        if (answers.hasOwnProperty(key)) {
-          self[key] = answers[key];
-        }
+    for (var key in answers) {
+      if (answers.hasOwnProperty(key)) {
+        self[key] = answers[key];
       }
-
-      next(null);
-    });
-
-  },
-  function(err) {
-    if(err) {
-      console.log('Error: ', err);
-      return cb(err);
     }
 
     // calculated answers
     self.repositoryType = 'git';
+
     cb();
-  });
+  }.bind(this));
 
 };
 

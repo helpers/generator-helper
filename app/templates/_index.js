@@ -1,5 +1,5 @@
 /**
- * Handlebars Helpers: {{<%= _.slugify(helperName) %>}}
+ * <%= _.slugify(helperType) %> Helper: {{<%= _.slugify(fullName) %>}}
  * Copyright (c) <%= (new Date).getYear() %> <%= contributors %>
  * Licensed under the <%= licenseType %> License (<%= licenseType %>).
  */

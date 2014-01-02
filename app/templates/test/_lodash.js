@@ -13,7 +13,7 @@ describe('<%= _.slugify(fullName) %>', function() {
 
   it('should do something awesome', function() {
     var expected = 'FOO';
-    var actual = _.'<%= _.safename(helperName) %>'('foo');
+    var actual = _.<%= _.safename(helperName) %>('foo');
     expect(actual).to.eql(expected);
   });
 

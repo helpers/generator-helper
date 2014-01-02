@@ -14,6 +14,6 @@ module.exports = {
     // TODO: Change this mixin!!!
     // 
     return comment.toUpperCase();
-  });
+  }
 
 };

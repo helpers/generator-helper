@@ -39,7 +39,7 @@ HelperGenerator.prototype.askFor = function askFor() {
   // have Yeoman greet the user.
   console.log(this.yeoman);
 
-  var promptsList = [
+  var prompts = [
     {
       type: 'list',
       name: 'helperType',
@@ -61,30 +61,30 @@ HelperGenerator.prototype.askFor = function askFor() {
     },
     {
       name: 'description',
-      message: 'How would you describe this helper?'
+      message: 'How would you describe your helper?'
     },
     {
       name: 'user',
-      message: 'What user/org will this helper live under?'
+      message: 'What user/org will your helper live under?'
     },
     {
       name: 'homepage',
-      message: 'What is the homepage for this helper?',
+      message: 'What is the homepage for your helper?',
       'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>').bind(self)
     },
     {
       name: 'repositoryUrl',
-      message: 'Where will this helper be stored?',
+      message: 'Where will your helper be stored?',
       'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>.git').bind(self)
     },
     {
       name: 'bugUrl',
-      message: 'Where can people submit bugs for this helper?',
+      message: 'Where can people submit bugs for your helper?',
       'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>/issues').bind(self)
     },
     {
       name: 'licenseType',
-      message: 'What type of license does this helper have?',
+      message: 'What type of license does your helper have?',
       'default': 'MIT'
     },
     {
@@ -94,12 +94,12 @@ HelperGenerator.prototype.askFor = function askFor() {
     },
     {
       name: 'contributors',
-      message: 'Who are the contributors on this helper?',
+      message: 'Who are the contributors on your helper?',
       'default': processTemplate('<%= user %>').bind(self)
     }
   ];
 
-  this.prompt(promptsList, function(answers) {
+  this.prompt(prompts, function(answers) {
 
     for (var key in answers) {
       if (answers.hasOwnProperty(key)) {

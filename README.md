@@ -1,4 +1,4 @@
-# generator-helper [![Build Status](https://secure.travis-ci.org/doowb/generator-helper.png?branch=master)](https://travis-ci.org/doowb/generator-helper)
+# generator-helper [![Build Status](https://secure.travis-ci.org/assemble/generator-helper.png?branch=master)](https://travis-ci.org/assemble/generator-helper)
 
 A generator for [Yeoman](http://yeoman.io).
 

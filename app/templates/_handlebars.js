@@ -1,6 +1,6 @@
 /**
  * Handlebars Helper: {{<%= _.slugify(fullName) %>}}
- * Copyright (c) <%= (new Date).getYear() %> <%= contributors %>
+ * Copyright (c) <%= (new Date).getFullYear() %> <%= contributors %>
  * Licensed under the <%= licenseType %> License (<%= licenseType %>).
  */
 

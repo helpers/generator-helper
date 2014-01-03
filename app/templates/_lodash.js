@@ -5,15 +5,14 @@
  */
 
 // Export mixins
-module.exports = {
-  /**
-   * {{<%= _.slugify(helperName) %>}}
-   */
-  '<%= _.safename(helperName) %>': function(comment) {
-    //
-    // TODO: Change this mixin!!!
-    // 
-    return comment.toUpperCase();
-  }
+var mixins = module.exports = {};
 
+/**
+ * {{<%= _.slugify(helperName) %>}}
+ */
+mixins.<%= _.safename(helperName) %> = function(comment) {
+  //
+  // TODO: Change this mixin!!!
+  // 
+  return comment.toUpperCase();
 };

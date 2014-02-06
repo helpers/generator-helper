@@ -17,140 +17,141 @@ var processTemplate = function(tmpl) {
   };
 };
 
+var HelperGenerator = yeoman.generators.Base.extend({
+  init: function () {
+    this.pkg = yeoman.file.readJSON(path.join(__dirname, '../package.json'));
+    this.description = this.pkg.description;
 
-var HelperGenerator = module.exports = function HelperGenerator(args, options, config) {
-  yeoman.generators.Base.apply(this, arguments);
+    this.on('end', function () {
+      this.installDependencies({ skipInstall: this.options['skip-install'] });
+    });
 
-  this.on('end', function () {
-    this.installDependencies({ skipInstall: options['skip-install'] });
-  });
+    this._.mixin({ 'safename': safename });
+  },
 
-  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
+  askFor: function () {
+    var cb = this.async();
+    var self = this;
 
-  this._.mixin({ 'safename': safename });
-};
-
-util.inherits(HelperGenerator, yeoman.generators.Base);
-
-HelperGenerator.prototype.askFor = function askFor() {
-  var cb = this.async();
-  var self = this;
-
-  // have Yeoman greet the user.
-  console.log(this.yeoman);
-
-  var prompts = [
-    {
-      type: 'list',
-      name: 'helperType',
-      message: 'What type of helper are you creating?',
-      'default': 'Handlebars',
-      choices: [
-        'Handlebars',
-        'lodash'
-      ]
-    },
-    {
-      name: 'helperName',
-      message: 'What do you want to call your helper?',
-      'default': 'myHelper'
-    },
-    {
-      name: 'fullName',
-      message: 'What will the full name be?',
-      'default': processTemplate('<%= _.slugify(helperType) %>-<%= (helperType === "lodash" ? "mixin" : "helper") %>-<%= _.slugify(helperName) %>').bind(self)
-    },
-    {
-      name: 'description',
-      message: 'How would you describe your helper?'
-    },
-    {
-      name: 'user',
-      message: 'What user/org will your helper live under?'
-    },
-    {
-      name: 'homepage',
-      message: 'What is the homepage for your helper?',
-      'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>').bind(self)
-    },
-    {
-      name: 'repositoryUrl',
-      message: 'Where will your helper be stored?',
-      'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>.git').bind(self)
-    },
-    {
-      name: 'bugUrl',
-      message: 'Where can people submit bugs for your helper?',
-      'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>/issues').bind(self)
-    },
-    {
-      name: 'licenseType',
-      message: 'What type of license does your helper have?',
-      'default': 'MIT'
-    },
-    {
-      name: 'licenseUrl',
-      message: 'Where can the license be found?',
-      'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>/blob/master/LICENSE-<%= licenseType %>').bind(self)
-    },
-    {
-      name: 'contributors',
-      message: 'Who are the contributors on your helper?',
-      'default': processTemplate('<%= user %>').bind(self)
+    if (!this.options['skip-welcome-message']) {
+      console.log(this.yeoman);
     }
-  ];
 
-  this.prompt(prompts, function(answers) {
-
-    for (var key in answers) {
-      if (answers.hasOwnProperty(key)) {
-        self[key] = answers[key];
+    var prompts = [
+      {
+        type: 'list',
+        name: 'helperType',
+        message: 'What type of helper are you creating?',
+        'default': 'Handlebars',
+        choices: [
+          'Handlebars',
+          'lodash'
+        ]
+      },
+      {
+        name: 'helperName',
+        message: 'What do you want to call your helper?',
+        'default': 'myHelper'
+      },
+      {
+        name: 'fullName',
+        message: 'What will the full name be?',
+        'default': processTemplate('<%= _.slugify(helperType) %>-<%= (helperType === "lodash" ? "mixin" : "helper") %>-<%= _.slugify(helperName) %>').bind(self)
+      },
+      {
+        name: 'description',
+        message: 'How would you describe your helper?'
+      },
+      {
+        name: 'user',
+        message: 'What user/org will your helper live under?'
+      },
+      {
+        name: 'homepage',
+        message: 'What is the homepage for your helper?',
+        'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>').bind(self)
+      },
+      {
+        name: 'repositoryUrl',
+        message: 'Where will your helper be stored?',
+        'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>.git').bind(self)
+      },
+      {
+        name: 'bugUrl',
+        message: 'Where can people submit bugs for your helper?',
+        'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>/issues').bind(self)
+      },
+      {
+        name: 'licenseType',
+        message: 'What type of license does your helper have?',
+        'default': 'MIT'
+      },
+      {
+        name: 'licenseUrl',
+        message: 'Where can the license be found?',
+        'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>/blob/master/LICENSE-<%= licenseType %>').bind(self)
+      },
+      {
+        name: 'contributors',
+        message: 'Who are the contributors on your helper?',
+        'default': processTemplate('<%= user %>').bind(self)
       }
-    }
+    ];
 
-    // calculated answers
-    self.repositoryType = 'git';
+    this.prompt(prompts, function (answers) {
 
-    cb();
-  }.bind(this));
+      for (var key in answers) {
+        if (answers.hasOwnProperty(key)) {
+          self[key] = answers[key];
+        }
+      }
 
-};
+      // calculated answers
+      self.repositoryType = 'git';
 
-/**
- * Setup any configuration files that have to do with package manangers.
- * eg: package.json, bower.json
- * @return {undefined}
- */
-HelperGenerator.prototype.packageManagerConfigs = function packageManagerConfigs() {
-  this.template('_package.json', 'package.json');
-  this.template('_bower.json', 'bower.json');
-};
+      cb();
+    }.bind(this));
+  },
 
-/**
- * Setup any configuration files that have to do with the project
- * eg: editor settings, development settings (jshint, gruntfile)
- * @return {[type]} [description]
- */
-HelperGenerator.prototype.projectConfigs = function projectConfigs() {
-  this.copy('editorconfig', '.editorconfig');
-  this.copy('jshintrc', '.jshintrc');
-  this.copy('gitignore', '.gitignore');
-  this.copy('npmignore', '.npmignore');
-  this.copy('LICENSE-MIT', 'LICENSE-MIT');
-  this.template('Gruntfile.js', 'Gruntfile.js');
-};
+  /**
+   * Setup any configuration files that have to do with package manangers.
+   * eg: package.json, bower.json
+   * @return {undefined}
+   */
+  packageManagerConfigs: function () {
+    this.template('_package.json', 'package.json');
+    this.template('_bower.json', 'bower.json');
+  },
 
-HelperGenerator.prototype.testSetup = function testSetup() {
-  var mainName = 'test/_' + this.helperType + '.js';
-  this.mkdir('test');
-  this.template(mainName, 'test/main.js');
-};
+  /**
+   * Setup any configuration files that have to do with the project
+   * eg: editor settings, development settings (jshint, gruntfile)
+   * @return {[type]} [description]
+   */
+  projectConfigs: function () {
+    this.copy('editorconfig', '.editorconfig');
+    this.copy('jshintrc', '.jshintrc');
+    this.copy('gitignore', '.gitignore');
+    this.copy('npmignore', '.npmignore');
+    this.copy('LICENSE-MIT', 'LICENSE-MIT');
+    this.template('Gruntfile.js', 'Gruntfile.js');
+  },
 
-HelperGenerator.prototype.docsSetup = function docsSetup() {
-  this.mkdir('docs');
-};
+  testSetup: function () {
+    var mainName = 'test/_' + this.helperType + '.js';
+    this.mkdir('test');
+    this.template(mainName, 'test/main.js');
+  },
 
-HelperGenerator.prototype.helperFiles = function helperFiles() {
-  var indexName = '_' + this.helperType + '.js';
-  this.template(indexName, 'index.js');
-};
+  docsSetup: function () {
+    this.mkdir('docs');
+  },
+
+  helperFiles: function () {
+    var indexName = '_' + this.helperType + '.js';
+    this.template(indexName, 'index.js');
+  }
+
+});
+
+module.exports = HelperGenerator;

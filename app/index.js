@@ -138,7 +138,7 @@ var HelperGenerator = yeoman.generators.Base.extend({
   },
 
   testSetup: function () {
-    var mainName = 'test/_' + this.helperType + '.js';
+    var mainName = 'test/_' + this.helperType.toLowerCase() + '.js';
     this.mkdir('test');
     this.template(mainName, 'test/main.js');
   },
@@ -148,7 +148,7 @@ var HelperGenerator = yeoman.generators.Base.extend({
   },
 
   helperFiles: function () {
-    var indexName = '_' + this.helperType + '.js';
+    var indexName = '_' + this.helperType.toLowerCase() + '.js';
     this.template(indexName, 'index.js');
   }
 

@@ -25,6 +25,7 @@ describe('helper generator', function () {
       '.jshintrc',
       '.editorconfig',
       '.gitignore',
+      '.npmignore',
       'LICENSE-MIT',
       'package.json',
       'bower.json',

@@ -1,7 +1,7 @@
 {
   "name": "<%= _.slugify(fullName) %>",
   "description": "<%= description %>",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "homepage": "<%= homepage %>",
 
   "repository": {
@@ -17,7 +17,7 @@
   	"type": "<%= licenseType %>",
   	"url": "<%= licenseUrl %>"
   },
-  
+
   "engines": {
   	"node": ">=0.8.0"
   },
@@ -37,7 +37,7 @@
     "grunt-contrib-watch": "~0.5.3",
     "chai": "~1.8.1"
   },
-  
+
   "keywords": [
   	"helper",
   	"handlebars",

@@ -1,9 +1,12 @@
 {
   "name": "generator-helper",
   "version": "0.1.1",
-  "description": "A generator for Yeoman",
+  "description": "Yeoman generator for handlebars helper that can easily be used with Assemble.",
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "assemble",
+    "handlebars",
+    "helper"
   ],
   "homepage": "https://github.com/assemble/generator-helper",
   "bugs": "https://github.com/assemble/generator-helper/issues",

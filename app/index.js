@@ -19,7 +19,7 @@ var processTemplate = function(tmpl) {
 
 var HelperGenerator = yeoman.generators.Base.extend({
   init: function () {
-    this.pkg = yeoman.file.readJSON(path.join(__dirname, '../package.json'));
+    this.pkg = require('../package.json');
     this.description = this.pkg.description;
 
     this.on('end', function () {

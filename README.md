@@ -1,10 +1,8 @@
-# generator-helper [![Build Status](https://secure.travis-ci.org/assemble/generator-helper.png?branch=master)](https://travis-ci.org/assemble/generator-helper)
+# {{generator-helper}} [![NPM version](https://badge.fury.io/js/generator-helper.png)](http://badge.fury.io/js/generator-helper)  [![Build Status](https://travis-ci.org/assemble/generator-helper.png)](https://travis-ci.org/assemble/generator-helper)
 
-A generator for [Yeoman](http://yeoman.io).
-
+> Yeoman generator for handlebars helper that can easily be used with Assemble.
 
 ## Getting Started
-
 ### What is Yeoman?
 
 Trick question. It's not a thing. It's this guy:
@@ -42,6 +40,30 @@ Yeoman has a heart of gold. He's a person with feelings and opinions, but he's v
 If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
 
 
-## License
+## Options
 
-[MIT License](http://en.wikipedia.org/wiki/MIT_License)
+* `--skip-install`
+
+  Skips the automatic execution of `bower` and `npm` after scaffolding has finished.
+
+
+## Author
+
+**Brian Woodward**
+
++ [twitter/doowb](https://twitter.com/doowb)
++ [github/doowb](http://github.com/doowb)
+
+## Related
+
+ * [Assemble generator](https://github.com/assemble/generator-assemble)
+ * [Assemble Plugin generator](https://github.com/assemble/generator-plugin)
+
+
+## License
+Copyright (c) 2014 Brian Woodward, contributors.
+Released under the MIT license
+
+***
+
+_This file was generated on 2014-03-02._

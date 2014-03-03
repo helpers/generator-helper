@@ -9,7 +9,7 @@ var safename = function (name, patterns) {
   var remove = _.unique(_.flatten(_.union([], prefixes, patterns || [])));
   var re = new RegExp('^(?:' + remove.join('|') + ')[-_]?');
   return name.replace(re, '').replace(/[\W_]+/g, '_').replace(/^(\d)/, '_$1');
-}
+};
 
 var processTemplate = function(tmpl) {
   return function(answers) {

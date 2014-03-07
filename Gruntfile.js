@@ -1,5 +1,5 @@
 /*
- * grunt-readme
+ * generator-helper
  * https://github.com/assemble/generator-helper
  *
  * Copyright (c) 2014 Brian Woodward, contributors

@@ -1,4 +1,4 @@
-# {{generator-helper}} [![NPM version](https://badge.fury.io/js/generator-helper.png)](http://badge.fury.io/js/generator-helper)  [![Build Status](https://travis-ci.org/assemble/generator-helper.png)](https://travis-ci.org/assemble/generator-helper)
+# {{generator-helper}} [![NPM version](https://badge.fury.io/js/generator-helper.png)](http://badge.fury.io/js/generator-helper)  [![Build Status](https://travis-ci.org/assemble/generator-helper.svg)](https://travis-ci.org/assemble/generator-helper)
 
 > Yeoman generator for handlebars helper that can easily be used with Assemble.
 

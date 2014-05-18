@@ -10,9 +10,9 @@ var <%= _.safename(fullName) %> = require('../');
 
 describe('<%= _.slugify(fullName) %>', function() {
 
-	before(function(){
-		// run any code before tests here
-	});
+  before(function(){
+    // run any code before tests here
+  });
 
   it('should do something awesome', function() {
     var expected = '<%= _.slugify(fullName) %>';

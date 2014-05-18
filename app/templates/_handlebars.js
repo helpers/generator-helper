@@ -20,7 +20,7 @@ module.exports.register = function (Handlebars, options, params) {
 
     //
     // TODO: Change this helper!!!
-    // 
+    //
     var tmpl = '<!-- Comment provided by the <%= _.slugify(helperName) %> helper: {{comment}} -->';
     return new Handlebars.SafeString(options.fn(tmpl, { comment: comment }));
   });

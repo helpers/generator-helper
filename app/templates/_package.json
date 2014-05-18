@@ -3,31 +3,24 @@
   "description": "<%= description %>",
   "version": "0.1.0",
   "homepage": "<%= homepage %>",
-
   "repository": {
-  	"type": "<%= repositoryType %>",
-  	"url": "<%= repositoryUrl %>"
+    "type": "<%= repositoryType %>",
+    "url": "<%= repositoryUrl %>"
   },
-
   "bugs": {
-  	"url": "<%= bugUrl %>"
+    "url": "<%= bugUrl %>"
   },
-
   "license": {
-  	"type": "<%= licenseType %>",
-  	"url": "<%= licenseUrl %>"
+    "type": "<%= licenseType %>",
+    "url": "<%= licenseUrl %>"
   },
-
   "engines": {
-  	"node": ">=0.8.0"
+    "node": ">=0.8.0"
   },
-
   "main": "./index.js",
-
   "dependencies": {<% if(helperType === "lodash") { %>
     "lodash": "~2.4.1"<% } %>
   },
-
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-jshint": "~0.7.0",
@@ -37,11 +30,10 @@
     "grunt-contrib-watch": "~0.5.3",
     "chai": "~1.8.1"
   },
-
   "keywords": [
-  	"helper",
-  	"handlebars",
-  	"handlebars helper",
-  	"assemble"
+    "helper",
+    "handlebars",
+    "handlebars helper",
+    "assemble"
   ]
 }

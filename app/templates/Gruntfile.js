@@ -1,16 +1,7 @@
-/*
- * <%= _.slugify(fullName) %>
- * <%= repositoryUrl %>
- *
- * Copyright (c) <%= (new Date).getFullYear() %> <%= contributors %>
- * Licensed under the <%= licenseType %> license.
- */
-
 'use strict';
 
 module.exports = function(grunt) {
 
-  // Project configuration.
   grunt.initConfig({
     pkg : grunt.file.readJSON('package.json'),
 
@@ -61,22 +52,14 @@ module.exports = function(grunt) {
 
   });
 
-  // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-readme');
 
-  // Tests
   grunt.registerTask('test', ['jshint', 'mochaTest']);
-
-  // Dev
   grunt.registerTask('dev', ['test', 'watch']);
-
-  // Docs
   grunt.registerTask('docs', ['readme']);
-
-  // By default, lint and run all tests.
   grunt.registerTask('default', ['test', 'readme']);
 
 };

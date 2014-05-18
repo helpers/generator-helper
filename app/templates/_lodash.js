@@ -13,6 +13,6 @@ var mixins = module.exports = {};
 mixins.<%= _.safename(helperName) %> = function(comment) {
   //
   // TODO: Change this mixin!!!
-  // 
+  //
   return comment.toUpperCase();
 };

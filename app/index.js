@@ -64,7 +64,7 @@ var HelperGenerator = yeoman.generators.Base.extend({
       },
       {
         name: 'user',
-        message: 'What user/org will your helper live under?'
+        message: 'What user or organization will your helper live under?'
       },
       {
         name: 'homepage',
@@ -89,12 +89,34 @@ var HelperGenerator = yeoman.generators.Base.extend({
       {
         name: 'licenseUrl',
         message: 'Where can the license be found?',
-        'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>/blob/master/LICENSE-<%= licenseType %>').bind(self)
+        'default': processTemplate('https://github.com/<%= user %>/<%= _.slugify(fullName) %>/blob/master/LICENSE').bind(self)
       },
       {
         name: 'contributors',
         message: 'Who are the contributors on your helper?',
         'default': processTemplate('<%= user %>').bind(self)
+      }, 
+      {
+        type: 'confirm',
+        name: 'editorconfig',
+        message: 'Would you like an .editorconfig file?' ,
+        'default': false
+      },
+      {
+        type: 'confirm',
+        name: 'bower',
+        message: 'Will this project require Bower?',
+        'default': false
+      },
+      {
+        type: 'list',
+        name: 'buildType',
+        message: 'Would you like to use gulp or Grunt as your build tool?',
+        'default': 'gulp',
+        choices: [
+          'gulp',
+          'Grunt'
+        ]
       }
     ];
 
@@ -115,12 +137,12 @@ var HelperGenerator = yeoman.generators.Base.extend({
 
   /**
    * Setup any configuration files that have to do with package manangers.
-   * eg: package.json, bower.json
+   * eg: bower.json and package.json
    * @return {undefined}
    */
   packageManagerConfigs: function () {
-    this.template('_package.json', 'package.json');
-    this.template('_bower.json', 'bower.json');
+    if (this.editorconfig === true) this.template('_bower.json', 'bower.json');
+    this.copy('_package.json', 'package.json');
   },
 
   /**
@@ -129,12 +151,21 @@ var HelperGenerator = yeoman.generators.Base.extend({
    * @return {[type]} [description]
    */
   projectConfigs: function () {
-    this.copy('editorconfig', '.editorconfig');
+    if (this.editorconfig === true) this.copy('editorconfig', '.editorconfig');
     this.copy('jshintrc', '.jshintrc');
+    this.copy('verbrc', '.verbrc.md');
     this.copy('gitignore', '.gitignore');
     this.copy('npmignore', '.npmignore');
-    this.copy('LICENSE-MIT', 'LICENSE-MIT');
-    this.template('Gruntfile.js', 'Gruntfile.js');
+    this.copy('LICENSE', 'LICENSE');
+  },
+  
+  /** 
+   * Setup the build system
+   * eg: gulp or grunt
+   */
+  projectBuildType: function () { 
+    var filename = this.buildType.toLowerCase() + 'file.js';
+    this.copy(filename,filename); // Copy either gruntfile.js or gulpfile.js
   },
 
   testSetup: function () {

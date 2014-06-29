@@ -12,12 +12,14 @@ username: doowb
 ## Options
 {%= _.doc("docs-options.md") %}
 
-## Author
+## Authors
 
 **Brian Woodward**
 
 + [twitter/doowb](https://twitter.com/doowb)
 + [github/doowb](http://github.com/doowb)
+
+**[Patrick Burtchaell](https://github.com/pburtchaell)**
 
 ## Related
 {%= _.doc("docs-related.md") %}

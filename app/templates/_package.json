@@ -18,16 +18,22 @@
     "node": ">=0.8.0"
   },
   "main": "./index.js",
-  "dependencies": {<% if(helperType === "lodash") { %>
+  "dependencies": {<% if(helperType === 'lodash') { %>
     "lodash": "~2.4.1"<% } %>
   },
-  "devDependencies": {
+  "devDependencies": {<% if (buildType === 'gulp') { %>
+    "gulp": "~3.8.5",
+    "gulp-jslint": "~0.1.0",
+    "gulp-mocha": "~0.4.1",
+    "gulp-verb": "~0.2.3",
+    "gulp-help": "~0.1.7",
+    "gulp-plumber": "~0.6.3",<% } else if (buildType === 'Grunt') { %>
     "grunt": "~0.4.2",
     "grunt-contrib-jshint": "~0.7.0",
+    "grunt-contrib-watch": "~0.5.3",
     "grunt-readme": "~0.4.0",
     "grunt-repos": "~0.1.2",
-    "grunt-mocha-test": "~0.8.1",
-    "grunt-contrib-watch": "~0.5.3",
+    "grunt-mocha-test": "~0.8.1",<% } %>
     "chai": "~1.8.1"
   },
   "keywords": [

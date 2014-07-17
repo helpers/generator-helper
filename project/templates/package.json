@@ -1,0 +1,25 @@
+{
+  "name": "<%= _.slugify(name) %>",
+  "description": "<%= description %>",
+  "version": "0.1.0",
+  "homepage": "<%= url %>",
+  "repository": {
+    "type": "git",
+    "url": "<%= url %>"
+  },
+  "license": "<%= license %>",
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "main": "./index.js",
+  "dependencies": {<% if (type === 'lodash') { %>
+    "lodash": "~2.4.1"<% } %>
+  },
+  "keywords": [
+    "helper"<% if (type === 'handlebars') { %>,
+    "handlebars",
+    "handlebars helper"<% } if (type === 'lodash') { %>,
+    "lodash",
+    "lodash helper"<% } %>
+  ]
+}

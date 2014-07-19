@@ -1,4 +1,4 @@
-module.exports = function (name, patterns) {
+exports.safename = function (name, patterns) {
   var prefixes = [
     'helper', 
     'handlebars-helper', 

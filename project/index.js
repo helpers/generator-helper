@@ -51,9 +51,14 @@ module.exports = yo.generators.Base.extend({
         ]
       },
       {
-        type: 'conform',
+        type: 'confirm',
         name: 'docs',
-        message: 'Generate boilerplate documentation? (y/n)',
+        message: 'Generate boilerplate documentation?',
+      },
+      {
+        type: 'confirm',
+        name: 'mocha',
+        message: 'Use Mocha for tests?',
       }
     ];
 
@@ -75,13 +80,22 @@ module.exports = yo.generators.Base.extend({
     
     this.template('package.json', 'package.json');
     var taskrunnerName = this.taskrunner.toLowerCase() + 'file.js';
-    this.copy(taskrunnerName, taskrunnerName);
+    this.template(taskrunnerName, taskrunnerName);
   },
 
   docs: function () {
     if (this.docs != false) {
       this.mkdir('docs');
       this.template('verbrc.md','.verbrc.md');
+      this.copy('docs/getting-started.md','docs/getting-started.md');
+      this.copy('docs/options.md','docs/options.md');
+    }
+  },
+  
+  mocha: function () {
+    if (this.mocha != false) {
+      var testFilePath = 'tests/' + this.type.toLowerCase() + '.js';
+      this.template(testFilePath,testFilePath);
     }
   }
   

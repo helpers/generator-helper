@@ -3,6 +3,7 @@
   "description": "<%= description %>",
   "version": "0.1.0",
   "homepage": "<%= url %>",
+  "author": "<%= author %>",
   "repository": {
     "type": "git",
     "url": "<%= url %>"
@@ -14,6 +15,14 @@
   "main": "./index.js",
   "dependencies": {<% if (type === 'lodash') { %>
     "lodash": "~2.4.1"<% } %>
+  },
+  "devDependencies": {<% if (taskrunner === 'gulp') { %>
+    "gulp": "latest",<% if (docs != false) { %>
+    "gulp-verb": "latest",<% } %>
+    "gulp-plumber": "latest",
+    "gulp-help": "latest"<% } if (taskrunner === 'grunt') {  %>
+    "grunt": "latest"<% if (docs != false) { %>,
+    "grunt-verb": "latest"<% } } %>
   },
   "keywords": [
     "helper"<% if (type === 'handlebars') { %>,

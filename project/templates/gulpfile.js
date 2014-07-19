@@ -2,45 +2,49 @@
 
 var gulp = require('gulp');
 var help = require('gulp-help')(gulp);
-var mocha = require('gulp-mocha');
+<% if (mocha != false) { %>var mocha = require('gulp-mocha');<% } %>
 var plumber = require('gulp-plumber');
-var verb = require('gulp-verb');
+<% if (docs != false) { %>var verb = require('gulp-verb');<% } %>
 var pkg = require('./package.json');
 
 var opts = {
   src: {
-    js: ['test/*.js', '*.js'],
-    docs: '.verbrc.md',
-    tests: 'test/*.js'
+    <% if (docs != false) { %>docs: '.verbrc.md'<% } %>
+    <% if (mocha != false) { %>, tests: 'test/*.js'<% } %>
   },
   dest: './',
-  jslint: {
-    
-  },
+  <% if (mocha != false) { %>
   mocha: {
     reporter: 'progress'
-  },
+  },<% } if (docs != false) { %
   verb: {
     dest: 'README.md'
-  }
+  }<% } %>
 };
 
 // Run `gulp help` in the CLI to return a list of available tasks.
+<% if(mocha != false){ %>
 gulp.task('test', 'Run Mocha tests.', function () {
   gulp.src(opts.src.tests)
     .pipe(mocha(opts.mocha));
 });
- 
-gulp.task('verb', 'Compile README.md using gulp-verb.', function () {
-  gulp.src([opts.src.docs])
-    .pipe(plumber())
-    .pipe(verb(opts.verb))
-    .pipe(gulp.dest(opts.dest));
+<% } %>
+    
+<% if(docs != false) { %>
+gulp.task('verb', 'Compile README.', function () {
+gulp.src([opts.src.docs])
+  .pipe(plumber())
+  .pipe(verb(opts.verb))
+  .pipe(gulp.dest(opts.dest));
 });
+<% } %>
 
 gulp.task('watch', 'Watch source files for changes.', function () {
-  gulp.watch(opts.src.js, ['test']);
+  <% if (mocha != false) { %>
+    gulp.watch(opts.src.js, ['test']);
+  <% } if (docs != false) { %>
   gulp.watch(opts.src.docs, ['verb']);
+  <% } %>
 });
 
-gulp.task('default',['test']);
+gulp.task('default',['watch']);

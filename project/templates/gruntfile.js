@@ -3,7 +3,7 @@
 module.exports = function (grunt) {
 
   grunt.initConfig({
-
+    <% if (mocha != false) { %>
     /**
      * Run mocha tests.
      */
@@ -16,35 +16,26 @@ module.exports = function (grunt) {
         },
         src: ['test/*.js']
       }
-    },
+    },<% } if (docs != false) { %>
 
     /**
-     * Watch source files and run tests when changes are made.
+     * Generate README file.
      */
     verb: {
-      dev: {
-        files: ['Gruntfile.js', 'test/*.js', '*.js'],
-        tasks: ['test']
-      }
-    },
-
-    /**
-     * Use helpers.json for context to generate list
-     * of related repos
-     */
-    readme: {
       options: {
-        boilerplate: 'node-util'
+        
+      },
+      docs: {
+        
       }
-    }
+    }<% } %>
 
   });
+  <% if (mocha != false) { %>
+  grunt.loadNpmTasks('grunt-mocha-test');<% } if (docs != false) { %>
+  grunt.loadNpmTasks('grunt-verb');<% } if (mocha != false) { %>
 
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-mocha-test');
-  grunt.loadNpmTasks('grunt-verb');
-
-  grunt.registerTask('test', ['mochaTest']);
-  grunt.registerTask('default', ['test', 'readme']);
+  grunt.registerTask('test', ['mochaTest']);<% } %>
+  grunt.registerTask('default', [<% if (docs != false) { %>'verb'<% } else { %>''<% } %>]);
 
 };
